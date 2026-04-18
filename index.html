@@ -331,7 +331,15 @@
                 <div class="cta-pill">2,400+ seniors already on the waitlist</div>
                 <h2>Secure your spot early</h2>
                 <p>Be the first to know when Wellora launches. No app required, just your email to get started.</p>
-                <form id="waitlist-form" class="waitlist-form" action="https://formspree.io/f/YOUR_ENDPOINT" method="POST">
+                <form
+                    id="waitlist-form"
+                    class="waitlist-form"
+                    action="#"
+                    method="POST"
+                    data-supabase-url="https://iturtqgexvklgtgqyzdz.supabase.co"
+                    data-supabase-anon-key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0dXJ0cWdleHZrbGd0Z3F5emR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNjE3OTcsImV4cCI6MjA5MTkzNzc5N30.hARuSHJ2PHPwIqEHxEjtR4qLQVWCk2Ej8vBLdCLTOE8"
+                    data-supabase-table="wellora waitlist"
+                >
                     <label class="sr-only" for="emailInput">Email address</label>
                     <input id="emailInput" type="email" name="email" placeholder="Enter your email address" required>
                     <button id="joinBtn" type="submit" class="btn btn-primary">Join Waitlist</button>
@@ -354,6 +362,7 @@
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 </body>
 </html>

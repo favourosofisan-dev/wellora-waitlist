@@ -5,6 +5,10 @@ const waitlistForm = document.getElementById("waitlist-form");
 const emailInput = document.getElementById("emailInput");
 const joinBtn = document.getElementById("joinBtn");
 const message = document.getElementById("message");
+const supabaseUrl = waitlistForm?.dataset.supabaseUrl ?? "";
+const supabaseAnonKey = waitlistForm?.dataset.supabaseAnonKey ?? "";
+const waitlistTable = waitlistForm?.dataset.supabaseTable ?? "";
+const supabaseClient = window.supabase?.createClient(supabaseUrl, supabaseAnonKey);
 
 if (mobileMenuBtn && siteNav) {
     mobileMenuBtn.addEventListener("click", () => {
@@ -38,12 +42,12 @@ document.querySelectorAll('.site-nav a, .footer-links a, a[href^="#"]').forEach(
 });
 
 if (waitlistForm) {
-    waitlistForm.addEventListener("submit", (event) => {
+    waitlistForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
         const email = emailInput?.value.trim() ?? "";
 
         if (email === "") {
-            event.preventDefault();
-
             if (message) {
                 message.textContent = "Please enter your email first";
             }
@@ -52,16 +56,50 @@ if (waitlistForm) {
             return;
         }
 
-        if (message) {
-            message.textContent = "You're now on the Wellora early access list";
+        if (!supabaseClient) {
+            if (message) {
+                message.textContent = "The waitlist is temporarily unavailable. Please try again.";
+            }
+            return;
         }
-    });
-}
 
-if (joinBtn && emailInput && message) {
-    joinBtn.addEventListener("click", () => {
-        if (emailInput.value.trim() !== "") {
-            message.textContent = "You're now on the Wellora early access list";
+        if (joinBtn) {
+            joinBtn.disabled = true;
+            joinBtn.textContent = "Joining...";
+        }
+
+        if (message) {
+            message.textContent = "Saving your spot...";
+        }
+
+        const { error } = await supabaseClient
+            .from(waitlistTable)
+            .insert([{ email }]);
+
+        if (error) {
+            if (message) {
+                message.textContent = error.code === "23505"
+                    ? "This email is already on the waitlist."
+                    : "Something went wrong. Please try again.";
+            }
+
+            if (joinBtn) {
+                joinBtn.disabled = false;
+                joinBtn.textContent = "Join Waitlist";
+            }
+
+            return;
+        }
+
+        if (message) {
+            message.textContent = "You're now on the Wellora early access list.";
+        }
+
+        waitlistForm.reset();
+
+        if (joinBtn) {
+            joinBtn.disabled = false;
+            joinBtn.textContent = "Join Waitlist";
         }
     });
 }
