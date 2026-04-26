@@ -231,6 +231,7 @@ input {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
     padding: 14px 28px;
     border: 2px solid transparent;
     text-decoration: none;
@@ -260,6 +261,25 @@ input {
 .btn-secondary:hover {
     background: var(--clay);
     color: var(--paper);
+}
+
+.btn-whatsapp {
+    background: var(--paper);
+    border-color: rgba(37, 211, 102, 0.28);
+    color: #1c8f52;
+}
+
+.btn-whatsapp:hover {
+    background: #f5fbf7;
+    border-color: rgba(37, 211, 102, 0.42);
+    color: #157845;
+}
+
+.btn-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    object-fit: contain;
 }
 
 .hero-stats {
@@ -506,6 +526,12 @@ input {
     stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
+}
+
+.goal-icon img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
 }
 
 .goal-card h3,
@@ -875,6 +901,22 @@ input {
     gap: 8px;
     max-width: 460px;
     margin: 0 auto;
+}
+
+.cta-whatsapp-link {
+    margin: 0 auto 18px;
+}
+
+.cta-section .btn-whatsapp {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(37, 211, 102, 0.34);
+    color: #18914f;
+}
+
+.cta-section .btn-whatsapp:hover {
+    background: var(--paper);
+    border-color: rgba(37, 211, 102, 0.5);
+    color: #157845;
 }
 
 .waitlist-form input {
